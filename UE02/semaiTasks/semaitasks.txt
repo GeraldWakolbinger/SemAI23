@@ -1,0 +1,98 @@
+T0
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix ex:   <http://www.ex.org/> .
+
+ex:John a foaf:Person .
+ex:John foaf:knows ex:Mary .
+
+T1
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix :     <http://www.ex.org/person#> .
+
+:Mary a foaf:Person .
+:Jim a foaf:Person .
+:Mary foaf:knows :Jim .
+:Mary foaf:age "27"^^xsd:integer .
+
+T2
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+@prefix :     <http://www.ex.org/vocabulary#> .
+
+:Company a rdfs:Class .
+:Employee a rdfs:Class .
+:Person a rdfs:Class .
+:Employee rdfs:subClassOf :Person .
+
+:salary a rdf:Property .
+:salary rdfs:domain :Employee .
+:salary rdfs:range xsd:integer .
+
+:worksFor a rdf:Property .
+:worksFor rdfs:domain :Employee .
+:worksFor rdfs:range :Company .
+
+T3
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix ex:   <http://www.ex.org/> .
+
+ex:aStmt a rdf:Statement .
+ex:aStmt rdf:subject ex:John .
+ex:aStmt rdf:predicate ex:loves .
+ex:aStmt rdf:object ex:Mary .
+
+ex:Mary ex:says ex:aStmt .
+
+T4
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix ex:   <http://www.ex.org/> .
+
+ex:John foaf:knows _:p .
+_:p foaf:knows ex:Mary .
+_:p a foaf:Person .
+
+
+T4_2
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix ex:   <http://www.ex.org/> .
+
+ex:John foaf:knows [
+   foaf:knows ex:Mary ;
+   a foaf:Person
+].
+
+T5
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix ex:   <http://www.ex.org/> .
+
+ex:John a ex:SoccerPlayer .
+ex:John a ex:Student .
+
+T6
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ex:   <http://www.ex.org/> .
+
+ex:Dog a ex:Species .
+ex:Cat a ex:Species . 
+ex:Dog rdfs:subClassOf ex:Animal .
+ex:Cat rdfs:subClassOf ex:Animal .
+ex:Lassie a ex:Dog .
+
+T7
+@prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix ex:   <http://www.ex.org/> .
+
+ex:childOf rdfs:subPropertyOf ex:descendantOf .
+
+
+
+
