@@ -1,0 +1,358 @@
+T01:
+
+base         <http://dke.jku.at/example/>
+prefix :     <http://dke.jku.at/example/solarsystem/>
+prefix v:    <http://dke.jku.at/example/examplevocabulary/>
+prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix dbr:  <http://dbpedia.org/resource/>
+prefix dbo:  <http://dbpedia.org/ontology/>
+prefix dbd:	 <http://dbpedia.org/datatype/>
+prefix sdo:  <http://schema.org/>
+prefix wd:   <http://www.wikidata.org/entity/>
+prefix wdp:  <http://www.wikidata.org/prop/>
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+prefix unit: <http://qudt.org/vocab/unit/>
+prefix owl:  <http://www.w3.org/2002/07/owl#>
+
+SELECT *
+WHERE { 
+   ?d rdf:type dbo:DwarfPlanet .
+   OPTIONAL
+   { 
+      ?d skos:exactMatch ?match. 
+   }
+}
+ORDER BY ?d ASC(?d)
+
+T02:
+
+base         <http://dke.jku.at/example/>
+prefix :     <http://dke.jku.at/example/solarsystem/>
+prefix v:    <http://dke.jku.at/example/examplevocabulary/>
+prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix dbr:  <http://dbpedia.org/resource/>
+prefix dbo:  <http://dbpedia.org/ontology/>
+prefix dbd:	 <http://dbpedia.org/datatype/>
+prefix sdo:  <http://schema.org/>
+prefix wd:   <http://www.wikidata.org/entity/>
+prefix wdp:  <http://www.wikidata.org/prop/>
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+prefix unit: <http://qudt.org/vocab/unit/>
+prefix owl:  <http://www.w3.org/2002/07/owl#>
+
+SELECT ?star ?match ?massVal ?massUoM
+WHERE { 
+   ?star  rdf:type dbo:Star .
+   ?star skos:exactMatch ?match . 
+   ?star v:mass [rdf:value ?massVal] .
+   ?star v:mass [v:uom ?massUoM] .
+}
+ORDER BY ?star ASC(?star)
+
+T03:
+
+base         <http://dke.jku.at/example/>
+prefix :     <http://dke.jku.at/example/solarsystem/>
+prefix v:    <http://dke.jku.at/example/examplevocabulary/>
+prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix dbr:  <http://dbpedia.org/resource/>
+prefix dbo:  <http://dbpedia.org/ontology/>
+prefix dbd:	 <http://dbpedia.org/datatype/>
+prefix sdo:  <http://schema.org/>
+prefix wd:   <http://www.wikidata.org/entity/>
+prefix wdp:  <http://www.wikidata.org/prop/>
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+prefix unit: <http://qudt.org/vocab/unit/>
+prefix owl:  <http://www.w3.org/2002/07/owl#>
+
+SELECT ?planet ?assertedNo ?noOfDescribedMoons
+WHERE { 
+   ?planet rdf:type dbo:Planet .
+   ?planet v:nrOfMoons ?assertedNo. 
+   {
+      SELECT ?planet (count(?moon) AS ?noOfDescribedMoons)
+      WHERE
+      { 
+         ?planet rdf:type dbo:Planet .
+         OPTIONAL
+         { 
+            ?moon rdf:type dbo:Satellite .
+            ?moon v:orbits ?planet .
+         }
+      }
+      GROUP BY ?planet
+   }
+}
+ORDER BY ?planet ASC(?planet)
+
+T04:
+
+base         <http://dke.jku.at/example/>
+prefix :     <http://dke.jku.at/example/solarsystem/>
+prefix v:    <http://dke.jku.at/example/examplevocabulary/>
+prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix dbr:  <http://dbpedia.org/resource/>
+prefix dbo:  <http://dbpedia.org/ontology/>
+prefix dbd:	 <http://dbpedia.org/datatype/>
+prefix sdo:  <http://schema.org/>
+prefix wd:   <http://www.wikidata.org/entity/>
+prefix wdp:  <http://www.wikidata.org/prop/>
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+prefix unit: <http://qudt.org/vocab/unit/>
+prefix owl:  <http://www.w3.org/2002/07/owl#>
+
+SELECT (avg(?noOfDescribedMoons) AS ?avgNoOfDescribedMoons)
+WHERE { 
+   ?planet rdf:type dbo:Planet .
+   {
+      SELECT ?planet (count(?moon) AS ?noOfDescribedMoons)
+      WHERE
+      { 
+         ?planet rdf:type dbo:Planet .
+         OPTIONAL
+         { 
+            ?moon rdf:type dbo:Satellite .
+            ?moon v:orbits ?planet .
+         }
+      }
+      GROUP BY ?planet
+   }
+}
+ORDER BY ?planet ASC(?planet)
+
+
+T05:
+
+base         <http://dke.jku.at/example/>
+prefix :     <http://dke.jku.at/example/solarsystem/>
+prefix v:    <http://dke.jku.at/example/examplevocabulary/>
+prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix dbr:  <http://dbpedia.org/resource/>
+prefix dbo:  <http://dbpedia.org/ontology/>
+prefix dbd:	 <http://dbpedia.org/datatype/>
+prefix sdo:  <http://schema.org/>
+prefix wd:   <http://www.wikidata.org/entity/>
+prefix wdp:  <http://www.wikidata.org/prop/>
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+prefix unit: <http://qudt.org/vocab/unit/>
+prefix owl:  <http://www.w3.org/2002/07/owl#>
+
+SELECT ?class (count(?class) AS ?noOfInstances)
+WHERE { 
+   ?instance rdf:type ?class .
+}
+GROUP BY ?class
+HAVING(?noOfInstances > 2)
+ORDER BY ?class ASC(?class)
+
+T05-substitute:
+base         <http://dke.jku.at/example/>
+prefix :     <http://dke.jku.at/example/solarsystem/>
+prefix v:    <http://dke.jku.at/example/examplevocabulary/>
+prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix dbr:  <http://dbpedia.org/resource/>
+prefix dbo:  <http://dbpedia.org/ontology/>
+prefix dbd:	 <http://dbpedia.org/datatype/>
+prefix sdo:  <http://schema.org/>
+prefix wd:   <http://www.wikidata.org/entity/>
+prefix wdp:  <http://www.wikidata.org/prop/>
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+prefix unit: <http://qudt.org/vocab/unit/>
+prefix owl:  <http://www.w3.org/2002/07/owl#>
+
+SELECT ?class ?noOfInstances
+WHERE
+{
+   {
+      SELECT ?class (count(?class) AS ?noOfInstances)
+      WHERE { 
+      ?instance rdf:type ?class 
+      }
+      GROUP BY ?class
+   }
+   FILTER(?noOfInstances > 2)
+}
+ORDER BY ?class
+
+T06:
+base         <http://dke.jku.at/example/>
+prefix :     <http://dke.jku.at/example/solarsystem/>
+prefix v:    <http://dke.jku.at/example/examplevocabulary/>
+prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix dbr:  <http://dbpedia.org/resource/>
+prefix dbo:  <http://dbpedia.org/ontology/>
+prefix dbd:	 <http://dbpedia.org/datatype/>
+prefix sdo:  <http://schema.org/>
+prefix wd:   <http://www.wikidata.org/entity/>
+prefix wdp:  <http://www.wikidata.org/prop/>
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+prefix unit: <http://qudt.org/vocab/unit/>
+prefix owl:  <http://www.w3.org/2002/07/owl#>
+
+SELECT ?class ?prop (count(DISTINCT ?instance) AS ?noOfInstances )
+WHERE { 
+   ?instance rdf:type ?class .
+   ?instance ?prop ?x
+}
+
+GROUP BY ?prop ?class
+HAVING(?noOfInstances > 6)
+ORDER BY ?class ?prop 
+
+T06-substitute:
+base         <http://dke.jku.at/example/>
+prefix :     <http://dke.jku.at/example/solarsystem/>
+prefix v:    <http://dke.jku.at/example/examplevocabulary/>
+prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix dbr:  <http://dbpedia.org/resource/>
+prefix dbo:  <http://dbpedia.org/ontology/>
+prefix dbd:	 <http://dbpedia.org/datatype/>
+prefix sdo:  <http://schema.org/>
+prefix wd:   <http://www.wikidata.org/entity/>
+prefix wdp:  <http://www.wikidata.org/prop/>
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+prefix unit: <http://qudt.org/vocab/unit/>
+prefix owl:  <http://www.w3.org/2002/07/owl#>
+
+SELECT ?class ?prop ?noOfInstances
+WHERE
+{
+   {
+      SELECT ?class ?prop (count(DISTINCT ?instance) AS ?noOfInstances )
+      WHERE { 
+         ?instance rdf:type ?class .
+         ?instance ?prop ?x
+      }
+      GROUP BY ?prop ?class
+      ORDER BY ?class ?prop 
+   }
+   FILTER(?noOfInstances > 6)
+}
+
+T07:
+base         <http://dke.jku.at/example/>
+prefix :     <http://dke.jku.at/example/solarsystem/>
+prefix v:    <http://dke.jku.at/example/examplevocabulary/>
+prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix dbr:  <http://dbpedia.org/resource/>
+prefix dbo:  <http://dbpedia.org/ontology/>
+prefix dbd:	 <http://dbpedia.org/datatype/>
+prefix sdo:  <http://schema.org/>
+prefix wd:   <http://www.wikidata.org/entity/>
+prefix wdp:  <http://www.wikidata.org/prop/>
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+prefix unit: <http://qudt.org/vocab/unit/>
+prefix owl:  <http://www.w3.org/2002/07/owl#>
+
+SELECT ?x ?y
+WHERE 
+{
+   {?x rdf:type dbo:Star}
+   UNION
+   {?x rdf:type dbo:Satellite} 
+   OPTIONAL
+   {
+      ?x v:orbits ?y
+   }
+}
+ORDER BY ?x
+
+T08:
+base         <http://dke.jku.at/example/>
+prefix :     <http://dke.jku.at/example/solarsystem/>
+prefix v:    <http://dke.jku.at/example/examplevocabulary/>
+prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix dbr:  <http://dbpedia.org/resource/>
+prefix dbo:  <http://dbpedia.org/ontology/>
+prefix dbd:	 <http://dbpedia.org/datatype/>
+prefix sdo:  <http://schema.org/>
+prefix wd:   <http://www.wikidata.org/entity/>
+prefix wdp:  <http://www.wikidata.org/prop/>
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+prefix unit: <http://qudt.org/vocab/unit/>
+prefix owl:  <http://www.w3.org/2002/07/owl#>
+
+CONSTRUCT
+{
+   ?hkInstance rdf:type v:Himmelskoerper .
+   ?orbitInstance v:wirdUmrundetVon ?sat
+}
+WHERE 
+{
+   {
+      ?hkInstance rdf:type ?hk
+      FILTER(?hk IN (dbo:Planet, dbo:Satellite))
+      OPTIONAL {?sat rdf:type dbo:Satellite .
+                ?sat v:orbits ?orbitInstance .}
+   }
+   UNION
+   {
+      ?sat rdf:type ?y .
+      ?sat v:orbits :Sun .
+      FILTER(?y IN (dbo:Planet, dbo:Satellite))
+      VALUES(?orbitInstance){(:Sun)}
+   }
+   
+}
+
+T09:
+
+base         <http://dke.jku.at/example/>
+prefix :     <http://dke.jku.at/example/solarsystem/>
+prefix v:    <http://dke.jku.at/example/examplevocabulary/>
+prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix dbr:  <http://dbpedia.org/resource/>
+prefix dbo:  <http://dbpedia.org/ontology/>
+prefix dbd:	 <http://dbpedia.org/datatype/>
+prefix sdo:  <http://schema.org/>
+prefix wd:   <http://www.wikidata.org/entity/>
+prefix wdp:  <http://www.wikidata.org/prop/>
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+prefix unit: <http://qudt.org/vocab/unit/>
+prefix owl:  <http://www.w3.org/2002/07/owl#>
+
+ASK
+{
+   ?star rdf:type dbo:Star .
+   ?star v:mass [rdf:value ?massVal] .
+   FILTER(?massVal >1)
+   FILTER(?star NOT IN (:Sun))  
+}
+
+T10:
+
+base         <http://dke.jku.at/example/>
+prefix :     <http://dke.jku.at/example/solarsystem/>
+prefix v:    <http://dke.jku.at/example/examplevocabulary/>
+prefix rdf:  <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix dbr:  <http://dbpedia.org/resource/>
+prefix dbo:  <http://dbpedia.org/ontology/>
+prefix dbd:	 <http://dbpedia.org/datatype/>
+prefix sdo:  <http://schema.org/>
+prefix wd:   <http://www.wikidata.org/entity/>
+prefix wdp:  <http://www.wikidata.org/prop/>
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+prefix unit: <http://qudt.org/vocab/unit/>
+prefix owl:  <http://www.w3.org/2002/07/owl#>
+
+DESCRIBE ?r
+WHERE 
+{ 
+   ?r v:radius [rdf:value ?rad]
+   FILTER(?rad > 20000)
+   FILTER(?rad < 30000)
+}
+
+
