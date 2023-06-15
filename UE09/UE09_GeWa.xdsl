@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- This network was created in trial version of GeNIe, which can be used for evaluation purposes only -->
+<smile version="1.0" id="UE09" numsamples="10000" discsamples="10000">
+	<nodes>
+		<cpt id="A">
+			<state id="True" />
+			<state id="False" />
+			<probabilities>0.1 0.9</probabilities>
+		</cpt>
+		<cpt id="T">
+			<state id="True" />
+			<state id="False" />
+			<probabilities>0.05 0.95</probabilities>
+		</cpt>
+		<cpt id="J">
+			<state id="True" />
+			<state id="False" />
+			<parents>T</parents>
+			<probabilities>0.5 0.5 0.02 0.98</probabilities>
+		</cpt>
+		<cpt id="M">
+			<state id="True" />
+			<state id="False" />
+			<parents>T A</parents>
+			<probabilities>0.7 0.3 0.3 0.7 0.4 0.6 0.01 0.99</probabilities>
+		</cpt>
+	</nodes>
+	<extensions>
+		<genie version="1.0" app="GeNIe 4.0.2919.2 EVALUATION" name="UE09">
+			<node id="A">
+				<name>PeterAlarmFails</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000080" name="Arial" size="12" />
+				<position>309 159 391 210</position>
+				<barchart active="true" width="146" height="83" />
+			</node>
+			<node id="J">
+				<name>JohannaLate</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000080" name="Arial" size="12" />
+				<position>490 337 576 390</position>
+				<barchart active="true" width="157" height="93" />
+			</node>
+			<node id="T">
+				<name>TrainStrike</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000080" name="Arial" size="12" />
+				<position>487 159 569 210</position>
+				<barchart active="true" width="157" height="83" />
+			</node>
+			<node id="M">
+				<name>PeterLate</name>
+				<interior color="e5f6f7" />
+				<outline color="000080" />
+				<font color="000080" name="Arial" size="12" />
+				<position>290 348 372 399</position>
+				<barchart active="true" width="137" height="83" />
+			</node>
+		</genie>
+	</extensions>
+</smile>
